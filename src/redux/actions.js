@@ -4,4 +4,7 @@
 //     payload: value,
 //   };
 // };
-export const myAction = value => ({ type: 'MY_ACTION', payload: value });
+export const createContact = value => ({
+  type: 'phonebook/CreateContact',
+  payload: value,
+});

@@ -1,7 +1,15 @@
 import { createStore } from 'redux';
 
-const reducer = (state = { x: 5 }, action) => {
-  return state;
+const initialState = { contacts: [] };
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case 'phonebook/CreateContact':
+      return { contacts: [...state.contacts, action.payload] };
+
+    default:
+      return state;
+  }
 };
 
 const store = createStore(reducer);
