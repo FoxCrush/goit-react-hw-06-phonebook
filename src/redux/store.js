@@ -1,6 +1,8 @@
 import { createStore } from 'redux';
 
-const reducer = (state = {}, action) => state;
+const reducer = (state = { x: 5 }, action) => {
+  return state;
+};
 
 const store = createStore(reducer);
 
