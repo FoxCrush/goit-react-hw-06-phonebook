@@ -1,30 +1,28 @@
 import './App.css';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import AddContactForm from 'components/AddContactForm';
 import ContactList from 'components/ContactList';
 import Filter from 'components/Filter';
 class App extends Component {
-  state = {
-    contacts: [],
-    filter: '',
-  };
-
+  // state = {
+  //   items: [],
+  //   filter: '',
+  // };
   componentDidMount() {
-    const contactsFromStorage = localStorage.getItem('contacts');
-    const parsedContacts = JSON.parse(contactsFromStorage);
-
-    if (parsedContacts) {
-      this.setState({ contacts: parsedContacts });
-    }
+    // const contactsFromStorage = localStorage.getItem('contacts');
+    // const parsedContacts = JSON.parse(contactsFromStorage);
+    // if (parsedContacts) {
+    //   this.setState({ items: parsedContacts });
+    // }
   }
   componentDidUpdate(prevProps, prevState) {
-    const prevContacts = prevState.contacts;
-    const contacts = this.state.contacts;
-
-    if (prevContacts !== contacts) {
-      localStorage.setItem('contacts', JSON.stringify(contacts));
-    }
+    // const prevContacts = prevState.contacts;
+    // const contacts = this.state.contacts;
+    // if (prevContacts !== contacts) {
+    //   localStorage.setItem('contacts', JSON.stringify(contacts));
+    // }
   }
 
   sameContactNameWarning = name => {
@@ -32,7 +30,7 @@ class App extends Component {
   };
 
   createContact = (name = 'no name', number = 'no number') => {
-    if (this.state.contacts.some(contact => contact.name === name)) {
+    if (this.props.items.some(contact => contact.name === name)) {
       this.sameContactNameWarning(name);
       return;
     }
@@ -42,7 +40,7 @@ class App extends Component {
       id: uuidv4(),
     };
     this.setState(currState => ({
-      contacts: [...currState.contacts, contact],
+      items: [...currState.contacts, contact],
     }));
   };
 
@@ -51,8 +49,8 @@ class App extends Component {
   };
 
   filterContacts = () => {
-    const { contacts, filter } = this.state;
-    return contacts.filter(contact =>
+    const { items, filter } = this.props;
+    return items.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase())
     );
   };
@@ -64,7 +62,7 @@ class App extends Component {
   };
 
   render() {
-    const { filter } = this.state;
+    const { filter } = this.props;
     const contactsToShow = this.filterContacts();
     return (
       <section className="phonebookSection">
@@ -83,5 +81,11 @@ class App extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  items: state.contacts.items,
+  filter: state.contacts.filter,
+});
 
-export default App;
+const mapDispatchToProps = () => {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

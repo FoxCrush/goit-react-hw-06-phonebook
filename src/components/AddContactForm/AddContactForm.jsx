@@ -1,17 +1,17 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class createContactContainer extends Component {
-  state = { name: "", number: "" };
+  state = { name: '', number: '' };
 
   addContactButtonHandler = () => {
     const { name, number } = this.state;
     if (this.state.name.length > 0) {
       this.props.createContact(name, number);
     }
-    this.setState({ name: "", number: "" });
+    this.setState({ name: '', number: '' });
   };
 
-  onInputChangeHandler = (e) => {
+  onInputChangeHandler = e => {
     e.preventDefault();
     const type = e.target.name;
     this.setState({ [type]: e.target.value });
@@ -30,7 +30,7 @@ class createContactContainer extends Component {
           type="text"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
+          title="The name can only consist of letters, apostrophes, dashes and spaces. Example: Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan etc."
           required
         />
         <h3>Number</h3>
@@ -41,7 +41,7 @@ class createContactContainer extends Component {
           type="tel"
           name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
+          title="The phone number must consist of numbers and may contain spaces, dashes, parentheses, and may begin with +"
           required
         />
         <button

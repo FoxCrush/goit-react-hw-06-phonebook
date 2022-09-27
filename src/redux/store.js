@@ -1,6 +1,11 @@
 import { createStore } from 'redux';
 
-const initialState = { contacts: [] };
+const initialState = {
+  contacts: {
+    items: [{ id: 1, name: 'name', number: '123' }],
+    filter: '',
+  },
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {

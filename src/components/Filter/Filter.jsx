@@ -3,7 +3,7 @@ function Filter(props) {
   return (
     <input
       value={filterСondition}
-      onChange={(e) => onFilterInputChange(e.target.value)}
+      onChange={e => onFilterInputChange(e.target.value)}
       className="clientInputTextfield"
       type="text"
     />

@@ -1,5 +1,11 @@
-import ContactListItem from "components/ContactListItem";
+import ContactListItem from 'components/ContactListItem';
+import { connect } from 'react-redux';
+
 function ClassList(props) {
+  if (!props.contactsToShow) {
+    console.log('nothing to show in contact list');
+    return;
+  }
   return (
     <div className="contactListContainer">
       <ul>
@@ -16,5 +22,6 @@ function ClassList(props) {
     </div>
   );
 }
+const mapStateToProps = state => ({ contactsToShow: state.contacts.items });
 
-export default ClassList;
+export default connect(mapStateToProps)(ClassList);
