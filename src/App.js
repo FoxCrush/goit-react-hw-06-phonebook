@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import AddContactForm from 'components/AddContactForm';
 import ContactList from 'components/ContactList';
 import Filter from 'components/Filter';
+import { filterContacts } from 'redux/actions';
 class App extends Component {
   // state = {
   //   items: [],
@@ -45,7 +46,7 @@ class App extends Component {
   };
 
   onFilterInputChange = filter => {
-    this.setState({ filter });
+    this.props.onFilterInputChange({ filter });
   };
 
   filterContacts = () => {
@@ -62,7 +63,7 @@ class App extends Component {
   };
 
   render() {
-    const { filter } = this.props;
+    const { filter, onFilterInputChange } = this.props;
     const contactsToShow = this.filterContacts();
     return (
       <section className="phonebookSection">
@@ -71,7 +72,7 @@ class App extends Component {
         <h2>Contacts</h2>
         <Filter
           filterСondition={filter}
-          onFilterInputChange={this.onFilterInputChange}
+          onFilterInputChange={value => onFilterInputChange(value)}
         />
         <ContactList
           contactsToShow={contactsToShow}
@@ -86,6 +87,8 @@ const mapStateToProps = state => ({
   filter: state.contacts.filter,
 });
 
-const mapDispatchToProps = () => {};
+const mapDispatchToProps = dispatch => ({
+  onFilterInputChange: value => dispatch(filterContacts(value)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
