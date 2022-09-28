@@ -1,9 +1,3 @@
-// export const myAction = value => {
-//   return {
-//     type: 'MY_ACTION',
-//     payload: value,
-//   };
-// };
 export const createContact = value => ({
   type: 'phonebook/CreateContact',
   payload: value,
@@ -11,5 +5,9 @@ export const createContact = value => ({
 
 export const filterContacts = value => ({
   type: 'phonebook/FilterContacts',
+  payload: value,
+});
+export const deleteContact = value => ({
+  type: 'phonebook/DeleteContact',
   payload: value,
 });

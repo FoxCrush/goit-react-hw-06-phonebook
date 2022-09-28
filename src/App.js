@@ -1,34 +1,30 @@
 import './App.css';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 import AddContactForm from 'components/AddContactForm';
 import ContactList from 'components/ContactList';
 import FilterComponent from 'components/Filter';
-import { filterContacts } from 'redux/actions';
+import { filterContacts } from 'redux/contatcs/contactsActions';
 class App extends Component {
   // state = {
   //   items: [],
   //   filter: '',
   // };
-  componentDidMount() {
-    // const contactsFromStorage = localStorage.getItem('contacts');
-    // const parsedContacts = JSON.parse(contactsFromStorage);
-    // if (parsedContacts) {
-    //   this.setState({ items: parsedContacts });
-    // }
-  }
-  componentDidUpdate(prevProps, prevState) {
-    // const prevContacts = prevState.contacts;
-    // const contacts = this.state.contacts;
-    // if (prevContacts !== contacts) {
-    //   localStorage.setItem('contacts', JSON.stringify(contacts));
-    // }
-  }
-
-  sameContactNameWarning = name => {
-    alert(`${name} already exists`);
-  };
+  // componentDidMount() {
+  //   const contactsFromStorage = localStorage.getItem('contacts');
+  //   const parsedContacts = JSON.parse(contactsFromStorage);
+  //   if (parsedContacts) {
+  //     this.setState({ items: parsedContacts });
+  //   }
+  // }
+  // componentDidUpdate(prevProps, prevState) {
+  //   const prevContacts = prevState.contacts;
+  //   const contacts = this.state.contacts;
+  //   if (prevContacts !== contacts) {
+  //     localStorage.setItem('contacts', JSON.stringify(contacts));
+  //   }
+  // }
 
   // createContact = (name = 'no name', number = 'no number') => {
   //   if (this.props.items.some(contact => contact.name === name)) {
@@ -49,18 +45,21 @@ class App extends Component {
   //   this.props.onFilterInputChange({ filterString });
   // };
 
+  // deleteContact = contactID => {
+  //   this.setState(currState => ({
+  //     contacts: currState.contacts.filter(contact => contact.id !== contactID),
+  //   }));
+  // };
+
+  sameContactNameWarning = name => {
+    alert(`${name} already exists`);
+  };
+
   filterContacts = () => {
     const { items, filterString } = this.props;
-    console.log('filter', filterString);
     return items.filter(contact =>
       contact.name.toLowerCase().includes(filterString.toLowerCase())
     );
-  };
-
-  deleteContact = contactID => {
-    this.setState(currState => ({
-      contacts: currState.contacts.filter(contact => contact.id !== contactID),
-    }));
   };
 
   render() {

@@ -1,4 +1,5 @@
 import { combineReducers, compose, createStore } from 'redux';
+import contactReducer from './contatcs/contactsRedusers';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -42,28 +43,6 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 //     filterString: 'test',
 //   },
 // };
-const defaultItems = [
-  { id: 1, name: 'Jack', number: '123' },
-  { id: 2, name: 'Bob', number: '123' },
-  { id: 3, name: 'John', number: '123' },
-  { id: 4, name: 'Mike', number: '123' },
-];
-
-const itemsReducer = (state = defaultItems, action) => state;
-const filterReducer = (state = 'ja', { type, payload }) => {
-  switch (type) {
-    case 'phonebook/FilterContacts':
-      return payload;
-
-    default:
-      return state;
-  }
-};
-
-const contactReducer = combineReducers({
-  items: itemsReducer,
-  filterString: filterReducer,
-});
 
 const rootReducer = combineReducers({
   contacts: contactReducer,
