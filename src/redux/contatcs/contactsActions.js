@@ -1,6 +1,12 @@
-export const createContact = value => ({
+import { v4 as uuidv4 } from 'uuid';
+
+export const createContact = ({ name, number }) => ({
   type: 'phonebook/CreateContact',
-  payload: value,
+  payload: {
+    name,
+    number,
+    id: uuidv4(),
+  },
 });
 
 export const filterContacts = value => ({

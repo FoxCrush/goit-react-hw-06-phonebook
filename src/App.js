@@ -1,11 +1,10 @@
 import './App.css';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { v4 as uuidv4 } from 'uuid';
 import AddContactForm from 'components/AddContactForm';
 import ContactList from 'components/ContactList';
 import FilterComponent from 'components/Filter';
-import { filterContacts } from 'redux/contatcs/contactsActions';
+import { createContact, filterContacts } from 'redux/contatcs/contactsActions';
 class App extends Component {
   // state = {
   //   items: [],
@@ -31,11 +30,11 @@ class App extends Component {
   //     this.sameContactNameWarning(name);
   //     return;
   //   }
-  //   const contact = {
-  //     name,
-  //     number,
-  //     id: uuidv4(),
-  //   };
+  // const contact = {
+  //   name,
+  //   number,
+  //   id: uuidv4(),
+  // };
   //   this.setState(currState => ({
   //     items: [...currState.contacts, contact],
   //   }));
@@ -63,12 +62,12 @@ class App extends Component {
   };
 
   render() {
-    const { filterString, onFilterInputChange } = this.props;
+    const { filterString, onFilterInputChange, createContact } = this.props;
     const contactsToShow = this.filterContacts();
     return (
       <section className="phonebookSection">
         <h1>Phonebook</h1>
-        <AddContactForm createContact={this.createContact} />
+        <AddContactForm createContact={createContact} />
         <h2>Contacts</h2>
         <FilterComponent
           filterСondition={filterString}
@@ -89,6 +88,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onFilterInputChange: value => dispatch(filterContacts(value)),
+  createContact: contact => dispatch(createContact(contact)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

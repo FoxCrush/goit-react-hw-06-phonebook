@@ -4,9 +4,9 @@ class createContactContainer extends Component {
   state = { name: '', number: '' };
 
   addContactButtonHandler = () => {
-    const { name, number } = this.state;
+    // const { name, number } = this.state;
     if (this.state.name.length > 0) {
-      this.props.createContact(name, number);
+      this.props.createContact(this.state);
     }
     this.setState({ name: '', number: '' });
   };

@@ -7,7 +7,16 @@ const defaultItems = [
   { id: 4, name: 'Mike', number: '123' },
 ];
 
-const itemsReducer = (state = defaultItems, action) => state;
+const itemsReducer = (state = defaultItems, { type, payload }) => {
+  switch (type) {
+    case 'phonebook/CreateContact':
+      return [...state, payload];
+
+    default:
+      return state;
+  }
+};
+
 const filterReducer = (state = '', { type, payload }) => {
   switch (type) {
     case 'phonebook/FilterContacts':
