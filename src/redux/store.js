@@ -1,8 +1,15 @@
-import { createStore } from 'redux';
+import { compose, createStore } from 'redux';
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const initialState = {
   contacts: {
-    items: [{ id: 1, name: 'name', number: '123' }],
+    items: [
+      { id: 1, name: 'Alex', number: '123' },
+      { id: 2, name: 'Bob', number: '123' },
+      { id: 3, name: 'John', number: '123' },
+      { id: 4, name: 'Mike', number: '123' },
+    ],
     filter: 'test',
   },
 };
@@ -25,6 +32,6 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-const store = createStore(reducer);
+const store = createStore(reducer, composeEnhancers());
 
 export default store;
