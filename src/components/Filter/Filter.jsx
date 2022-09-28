@@ -1,4 +1,4 @@
-function Filter(props) {
+function FilterComponent(props) {
   const { filterСondition, onFilterInputChange } = props;
   return (
     <input
@@ -9,4 +9,4 @@ function Filter(props) {
     />
   );
 }
-export default Filter;
+export default FilterComponent;

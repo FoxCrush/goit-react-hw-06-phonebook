@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import AddContactForm from 'components/AddContactForm';
 import ContactList from 'components/ContactList';
-import Filter from 'components/Filter';
+import FilterComponent from 'components/Filter';
 import { filterContacts } from 'redux/actions';
 class App extends Component {
   // state = {
@@ -30,29 +30,30 @@ class App extends Component {
     alert(`${name} already exists`);
   };
 
-  createContact = (name = 'no name', number = 'no number') => {
-    if (this.props.items.some(contact => contact.name === name)) {
-      this.sameContactNameWarning(name);
-      return;
-    }
-    const contact = {
-      name,
-      number,
-      id: uuidv4(),
-    };
-    this.setState(currState => ({
-      items: [...currState.contacts, contact],
-    }));
-  };
+  // createContact = (name = 'no name', number = 'no number') => {
+  //   if (this.props.items.some(contact => contact.name === name)) {
+  //     this.sameContactNameWarning(name);
+  //     return;
+  //   }
+  //   const contact = {
+  //     name,
+  //     number,
+  //     id: uuidv4(),
+  //   };
+  //   this.setState(currState => ({
+  //     items: [...currState.contacts, contact],
+  //   }));
+  // };
 
-  onFilterInputChange = filter => {
-    this.props.onFilterInputChange({ filter });
-  };
+  // onFilterInputChange = filterString => {
+  //   this.props.onFilterInputChange({ filterString });
+  // };
 
   filterContacts = () => {
-    const { items, filter } = this.props;
+    const { items, filterString } = this.props;
+    console.log('filter', filterString);
     return items.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
+      contact.name.toLowerCase().includes(filterString.toLowerCase())
     );
   };
 
@@ -63,15 +64,15 @@ class App extends Component {
   };
 
   render() {
-    const { filter, onFilterInputChange } = this.props;
+    const { filterString, onFilterInputChange } = this.props;
     const contactsToShow = this.filterContacts();
     return (
       <section className="phonebookSection">
         <h1>Phonebook</h1>
         <AddContactForm createContact={this.createContact} />
         <h2>Contacts</h2>
-        <Filter
-          filterСondition={filter}
+        <FilterComponent
+          filterСondition={filterString}
           onFilterInputChange={value => onFilterInputChange(value)}
         />
         <ContactList
@@ -84,7 +85,7 @@ class App extends Component {
 }
 const mapStateToProps = state => ({
   items: state.contacts.items,
-  filter: state.contacts.filter,
+  filterString: state.contacts.filterString,
 });
 
 const mapDispatchToProps = dispatch => ({
