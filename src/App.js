@@ -66,10 +66,7 @@ class App extends Component {
         <AddContactForm createContact={createContact} />
         <h2>Contacts</h2>
         <FilterComponent />
-        <ContactList
-        // contactsToShow={contactsToShow}
-        // deleteMethod={deleteContact}
-        />
+        <ContactList />
       </section>
     );
   }

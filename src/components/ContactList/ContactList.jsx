@@ -3,11 +3,10 @@ import { connect } from 'react-redux';
 import { deleteContact } from 'redux/contatcs/contactsActions';
 
 function ClassList(props) {
-  // const contacts = props.contact.items;
   return (
     <div className="contactListContainer">
       <ul>
-        {props.contacts.items.map(({ id, name, number }) => (
+        {props.visibleContacts.map(({ id, name, number }) => (
           <ContactListItem
             id={id}
             key={id}
@@ -20,16 +19,17 @@ function ClassList(props) {
     </div>
   );
 }
-const mapStateToProps = state => state;
+
+const mapStateToProps = state => {
+  const { items, filterString } = state.contacts;
+  const visibleContacts = items.filter(contact =>
+    contact.name.toLowerCase().includes(filterString.toLowerCase())
+  );
+  return { visibleContacts };
+};
 
 const mapDispatchToProps = dispatch => ({
   deleteContact: contactId => dispatch(deleteContact(contactId)),
-  // filterContacts: () => {
-  //   const { items, filterString } = this.contactsToShow;
-  //   return items.filter(contact =>
-  //     contact.name.toLowerCase().includes(filterString.toLowerCase())
-  //   );
-  // },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ClassList);
