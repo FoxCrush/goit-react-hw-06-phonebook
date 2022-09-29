@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 import AddContactForm from 'components/AddContactForm';
 import ContactList from 'components/ContactList';
 import FilterComponent from 'components/Filter';
-import { createContact, filterContacts } from 'redux/contatcs/contactsActions';
+import {
+  createContact,
+  deleteContact,
+  filterContacts,
+} from 'redux/contatcs/contactsActions';
 class App extends Component {
   // state = {
   //   items: [],
@@ -62,7 +66,8 @@ class App extends Component {
   };
 
   render() {
-    const { filterString, onFilterInputChange, createContact } = this.props;
+    const { filterString, onFilterInputChange, createContact, deleteContact } =
+      this.props;
     const contactsToShow = this.filterContacts();
     return (
       <section className="phonebookSection">
@@ -75,7 +80,7 @@ class App extends Component {
         />
         <ContactList
           contactsToShow={contactsToShow}
-          deleteMethod={this.deleteContact}
+          deleteMethod={deleteContact}
         />
       </section>
     );
@@ -89,6 +94,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onFilterInputChange: value => dispatch(filterContacts(value)),
   createContact: contact => dispatch(createContact(contact)),
+  deleteContact: contactId => dispatch(deleteContact(contactId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

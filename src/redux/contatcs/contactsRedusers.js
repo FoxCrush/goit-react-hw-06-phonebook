@@ -11,6 +11,8 @@ const itemsReducer = (state = defaultItems, { type, payload }) => {
   switch (type) {
     case 'phonebook/CreateContact':
       return [...state, payload];
+    case 'phonebook/DeleteContact':
+      return state.filter(contact => contact.id !== payload);
 
     default:
       return state;
