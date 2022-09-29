@@ -35,3 +35,13 @@ const contactReducer = combineReducers({
 });
 
 export default contactReducer;
+
+// const sameContactNameWarning = name => {
+//   alert(`${name} already exists`);
+// };
+// if (props.contactsToShow.some(contact => contact.name === name)) {
+//   this.sameContactNameWarning(name);
+//   return;
+// }
+
+// [...state, payload];

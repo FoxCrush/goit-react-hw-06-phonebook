@@ -4,11 +4,7 @@ import { connect } from 'react-redux';
 import AddContactForm from 'components/AddContactForm';
 import ContactList from 'components/ContactList';
 import FilterComponent from 'components/Filter';
-import {
-  createContact,
-  deleteContact,
-  filterContacts,
-} from 'redux/contatcs/contactsActions';
+import { createContact } from 'redux/contatcs/contactsActions';
 class App extends Component {
   // state = {
   //   items: [],
@@ -30,8 +26,8 @@ class App extends Component {
   // }
 
   // createContact = (name = 'no name', number = 'no number') => {
-  //   if (this.props.items.some(contact => contact.name === name)) {
-  //     this.sameContactNameWarning(name);
+  // if (this.props.items.some(contact => contact.name === name)) {
+  //   this.sameContactNameWarning(name);
   //     return;
   //   }
   // const contact = {
@@ -54,33 +50,25 @@ class App extends Component {
   //   }));
   // };
 
-  sameContactNameWarning = name => {
-    alert(`${name} already exists`);
-  };
-
-  filterContacts = () => {
-    const { items, filterString } = this.props;
-    return items.filter(contact =>
-      contact.name.toLowerCase().includes(filterString.toLowerCase())
-    );
-  };
+  // filterContacts = () => {
+  //   const { items, filterString } = this.props;
+  //   return items.filter(contact =>
+  //     contact.name.toLowerCase().includes(filterString.toLowerCase())
+  //   );
+  // };
 
   render() {
-    const { filterString, onFilterInputChange, createContact, deleteContact } =
-      this.props;
-    const contactsToShow = this.filterContacts();
+    const { createContact } = this.props;
+    // const contactsToShow = this.filterContacts();
     return (
       <section className="phonebookSection">
         <h1>Phonebook</h1>
         <AddContactForm createContact={createContact} />
         <h2>Contacts</h2>
-        <FilterComponent
-          filterСondition={filterString}
-          onFilterInputChange={value => onFilterInputChange(value)}
-        />
+        <FilterComponent />
         <ContactList
-          contactsToShow={contactsToShow}
-          deleteMethod={deleteContact}
+        // contactsToShow={contactsToShow}
+        // deleteMethod={deleteContact}
         />
       </section>
     );
@@ -92,9 +80,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onFilterInputChange: value => dispatch(filterContacts(value)),
   createContact: contact => dispatch(createContact(contact)),
-  deleteContact: contactId => dispatch(deleteContact(contactId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
