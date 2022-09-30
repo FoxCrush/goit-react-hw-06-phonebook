@@ -1,14 +1,29 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { createContact } from 'redux/contatcs/contactsActions';
 
 class createContactContainer extends Component {
   state = { name: '', number: '' };
 
+  sameContactNameWarning = name => {
+    alert(`${name} already exists`);
+  };
+  checkSameContactName = (contacts, name) => {
+    return contacts.some(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
+  };
+
   addContactButtonHandler = () => {
-    // const { name, number } = this.state;
-    if (this.state.name.length > 0) {
+    const { name } = this.state;
+    const { items } = this.props;
+
+    if (!this.checkSameContactName(items, name) && name.length > 0) {
       this.props.createContact(this.state);
+      this.setState({ name: '', number: '' });
+    } else {
+      this.sameContactNameWarning(name);
     }
-    this.setState({ name: '', number: '' });
   };
 
   onInputChangeHandler = e => {
@@ -22,7 +37,7 @@ class createContactContainer extends Component {
 
     return (
       <div className="createContactContainer">
-        <h3>Name</h3>
+        <h3>Name</h3>Names can't be same
         <input
           value={name}
           onChange={this.onInputChangeHandler}
@@ -56,4 +71,19 @@ class createContactContainer extends Component {
   }
 }
 
-export default createContactContainer;
+const mapStateToProps = state => ({
+  items: state.contacts.items,
+});
+
+const mapDispatchToProps = dispatch => ({
+  createContact: contact => dispatch(createContact(contact)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(createContactContainer);
+
+// {
+//   createContact: contact => dispatch(createContact(contact)),
+// }
