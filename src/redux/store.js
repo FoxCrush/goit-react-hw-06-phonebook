@@ -1,6 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { combineReducers } from 'redux';
 import contactReducer from './contatcs/contactsRedusers';
+
+const store = configureStore({
+  reducer: {
+    contacts: contactReducer,
+  },
+  devTools: process.env.NODE_ENV === 'development',
+});
+
+export default store;
+
+// const rootReducer = combineReducers({
+//   contacts: contactReducer,
+// });
 
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -44,14 +56,3 @@ import contactReducer from './contatcs/contactsRedusers';
 //     filterString: 'test',
 //   },
 // };
-
-const rootReducer = combineReducers({
-  contacts: contactReducer,
-});
-
-const store = configureStore({
-  reducer: rootReducer,
-  devTools: process.env.NODE_ENV === 'development',
-});
-
-export default store;
