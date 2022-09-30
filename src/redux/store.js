@@ -1,7 +1,8 @@
-import { combineReducers, compose, createStore } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers } from 'redux';
 import contactReducer from './contatcs/contactsRedusers';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // const initialState = {
 //   contacts: {
@@ -48,6 +49,9 @@ const rootReducer = combineReducers({
   contacts: contactReducer,
 });
 
-const store = createStore(rootReducer, composeEnhancers());
+const store = configureStore({
+  reducer: rootReducer,
+  devTools: process.env.NODE_ENV === 'development',
+});
 
 export default store;
