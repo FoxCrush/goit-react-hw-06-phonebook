@@ -1,6 +1,7 @@
 import ContactListItem from 'components/ContactListItem';
 import { connect } from 'react-redux';
 import { deleteContact } from 'redux/contatcs/contactsActions';
+import PropTypes from 'prop-types';
 
 function ClassList(props) {
   return (
@@ -19,6 +20,17 @@ function ClassList(props) {
     </div>
   );
 }
+
+ClassList.propTypes = {
+  deleteContact: PropTypes.func.isRequired,
+  visibleContacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string,
+    })
+  ).isRequired,
+};
 
 const mapStateToProps = state => {
   const { items, filterString } = state.contacts;

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createContact } from 'redux/contatcs/contactsActions';
-
-class createContactContainer extends Component {
+import PropTypes from 'prop-types';
+class addContactContainer extends Component {
   state = { name: '', number: '' };
 
   sameContactNameWarning = name => {
@@ -36,7 +36,7 @@ class createContactContainer extends Component {
     const { name, number } = this.state;
 
     return (
-      <div className="createContactContainer">
+      <div className="addContactContainer">
         <h3>Name</h3>Names can't be same
         <input
           value={name}
@@ -71,6 +71,17 @@ class createContactContainer extends Component {
   }
 }
 
+addContactContainer.propTypes = {
+  createContact: PropTypes.func.isRequired,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string,
+    })
+  ).isRequired,
+};
+
 const mapStateToProps = state => ({
   items: state.contacts.items,
 });
@@ -82,7 +93,7 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(createContactContainer);
+)(addContactContainer);
 
 // {
 //   createContact: contact => dispatch(createContact(contact)),
